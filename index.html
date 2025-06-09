@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DeokjilZone halaman e-commerce sederhana</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+
+    <!-- Font & Icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #ecd0d0;
+        color: #333;
+      }
+
+      header {
+        background-color: #ede3e6;
+        color: rgb(243, 102, 102);
+        padding: 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .navbar h1 {
+        margin: 0;
+      }
+
+      .nav-tengah a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: rgb(232, 82, 82);
+      }
+
+      .nav-kanan {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .search-container input {
+        padding: 0.4rem;
+        border-radius: 4px;
+        border: none;
+      }
+
+      .search-container button {
+        padding: 0.4rem;
+        background-color: rgb(235, 176, 176);
+        border: none;
+        cursor: pointer;
+      }
+
+      main {
+        padding: 2rem;
+      }
+
+      .hero {
+        background: url("https://via.placeholder.com/1000x300?text=DeokjilZone+Banner")
+          center/cover;
+        height: 300px;
+        position: relative;
+      }
+
+      .hero-overlay {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: rgb(234, 207, 207);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      .brand {
+        color: #f1bcc8;
+        font-weight: bold;
+      }
+
+      .info-section {
+        margin: 2rem 0;
+      }
+
+      .produk-title {
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+
+      .filter-bar {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .produk-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: center;
+      }
+
+      .produk-item {
+        border: 1px solid #f3c7c7;
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+        background-color: rgb(239, 181, 181);
+        cursor: pointer;
+        transition: transform 0.2s;
+        width: 200px;
+      }
+
+      .produk-item:hover {
+        transform: scale(1.05);
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .modal-content {
+        background-color: #e8a9a9;
+        margin: 10% auto;
+        padding: 2rem;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 8px;
+      }
+
+      .close {
+        float: right;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      button {
+        background-color: #ff5e8e;
+        color: rgb(244, 175, 175);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+
+      button:hover {
+        background-color: #e04e7a;
+      }
+
+      #toast {
+        visibility: hidden;
+        min-width: 250px;
+        margin-left: -125px;
+        background-color: #f6b4b4;
+        color: #f4bcbc;
+        text-align: center;
+        border-radius: 4px;
+        padding: 1rem;
+        position: fixed;
+        z-index: 1001;
+        left: 50%;
+        bottom: 30px;
+      }
+
+      #toast.show {
+        visibility: visible;
+        animation: fadein 0.5s, fadeout 0.5s 1.5s;
+      }
+
+      @keyframes fadein {
+        from {
+          bottom: 0;
+          opacity: 0;
+        }
+        to {
+          bottom: 30px;
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeout {
+        from {
+          bottom: 30px;
+          opacity: 1;
+        }
+        to {
+          bottom: 0;
+          opacity: 0;
+        }
+      }
+
+      footer {
+        background-color: #f6ebeb;
+        text-align: center;
+        padding: 1rem;
+        margin-top: 2rem;
+        font-size: 0.9rem;
+      }
+
+      .hero {
+        background-image: url("https://static.wikia.nocookie.net/witchers/images/f/f6/New_Jeans_MV_Screenshot.png/revision/latest?cb=20241215204311");
+        background-size: cover;
+        background-position: center;
+        height: 400px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-overlay {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 2rem;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .brand {
+        color: #ffd700;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="nav-kiri"><h1>DeokjilZone</h1></div>
+        <div class="nav-tengah">
+          <a href="#beranda">Beranda</a>
+          <a href="#produk">Produk</a>
+          <a href="#keranjang">Keranjang</a>
+          <a href="#kontak">Kontak</a>
+        </div>
+        <div class="nav-kanan">
+          <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Cari..." />
+            <button onclick="filterProduk()">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <button class="cart-btn" onclick="bukaKeranjang()">
+            <i class="fas fa-shopping-cart"></i>
+          </button>
+          <a href="#" onclick="bukaLogin()">Login</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div id="toast">Produk ditambahkan ke keranjang!</div>
+
+      <!-- Login Modal -->
+      <aside id="loginModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="tutupLogin()">&times;</span>
+          <h2>Login</h2>
+          <form onsubmit="return loginSimulasi()">
+            <input type="text" id="username" placeholder="Username" required />
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              required
+            />
+            <button type="submit">Login</button>
+          </form>
+        </div>
+      </aside>
+
+      <!-- Hero -->
+      <section id="beranda" class="hero">
+        <div class="hero-overlay">
+          <h1>Selamat Datang di <span class="brand">DeokjilZone</span></h1>
+          <p>Temukan merchandise favorit idolamu!</p>
+        </div>
+      </section>
+
+      <!-- Produk Terbaru -->
+      <section id="produk-terbaru" class="info-section">
+        <h2>Produk Terbaru</h2>
+        <article>
+          <p>
+            Lihat produk-produk terbaru dari koleksi idol favoritmu! Update
+            setiap minggu dengan barang eksklusif
+          </p>
+        </article>
+      </section>
+
+      <!-- Kategori -->
+      <section id="kategori" class="info-section">
+        <h2>Kategori</h2>
+        <ul>
+          <li>Hand Banner</li>
+          <li>Keyring Truz</li>
+          <li>Doll Miniteen</li>
+        </ul>
+      </section>
+
+      <!-- Produk -->
+      <section id="produk">
+        <div class="section-gap">
+          <h2 class="produk-title">Merchandise Pilihan</h2>
+        </div>
+        <div class="filter-bar">
+          <select id="genreFilter">
+            <option value="all">Semua Kategori</option>
+            <option value="banner">Hand Banner</option>
+            <option value="truz">Keyring Truz</option>
+            <option value="miniteen">Doll Miniteen</option>
+          </select>
+          <select id="priceFilter">
+            <option value="all">Semua Harga</option>
+            <option value="low">200rb</option>
+            <option value="mid">250rb</option>
+            <option value="high">365rb</option>
+          </select>
+        </div>
+
+        <div class="produk-container" id="productContainer"></div>
+      </section>
+
+      <!-- Modal Detail Produk -->
+      <div id="productModal" class="modal">
+        <div class="modal-content" id="modalContent"></div>
+      </div>
+
+      <!-- Modal Keranjang -->
+      <section id="keranjang">
+        <div id="cartModal" class="modal">
+          <div class="modal-content">
+            <span class="close" onclick="tutupKeranjang()">&times;</span>
+            <h2>Keranjang Belanja</h2>
+            <ul id="cartItems"></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tentang Kami -->
+      <section id="tentang-kami" class="info-section">
+        <h2>Tentang Kami</h2>
+        <p>
+          DeokjilZone adalah platform e-commerce khusus penggemar K-Pop yang
+          menyediakan berbagai marchandise resmi dan eksklusif dengan pengalaman
+          berbelanja yang mudah, aman, dan terpercaya.
+        </p>
+      </section>
+
+      <!-- Kontak -->
+      <section id="kontak" class="info-section">
+        <h2>Kontak</h2>
+        <p>Email: cs@deokjilzone.com</p>
+        <p>Instagram: @deokjilzone</p>
+        <p>Telp: 0812-3456-7890</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        &copy; 2025 Deokjil Zone - All rights reserved | Developed by Winda
+        Riesta Sari
+      </p>
+    </footer>
+  </body>
+</html>
